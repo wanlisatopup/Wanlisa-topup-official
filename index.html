@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title> wanlisa topup | Top Up Game</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Poppins', sans-serif;
+    }
+
+    body {
+      background: #0a0a16;
+      color: #e0e0ff;
+      line-height: 1.6;
+    }
+
+    header {
+      background: rgba(8, 8, 20, 0.92);
+      backdrop-filter: blur(10px);
+      padding: 16px 5%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1px solid #1e1e3a;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+
+    .logo {
+      font-size: 28px;
+      font-weight: 800;
+      background: linear-gradient(90deg, #00f0ff, #4a6cf7);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    nav a {
+      color: #a0a0d0;
+      text-decoration: none;
+      margin-left: 24px;
+      font-weight: 600;
+      font-size: 16px;
+      transition: color 0.3s;
+    }
+
+    nav a:hover {
+      color: #00f0ff;
+    }
+
+    .hero {
+      background: linear-gradient(rgba(8, 8, 20, 0.8), rgba(10, 10, 30, 0.95)), 
+                  url('https://images.unsplash.com/photo-1550745165-9bc0b252726f?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80');
+      background-size: cover;
+      background-position: center;
+      height: 300px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+    }
+
+    .hero-content h1 {
+      font-size: 2.6rem;
+      margin-bottom: 12px;
+      background: linear-gradient(90deg, #ffffff, #00f0ff);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 30px auto;
+      padding: 0 20px;
+    }
+
+    .section-title {
+      text-align: center;
+      font-size: 2rem;
+      margin: 30px 0 25px;
+      color: #00f0ff;
+      font-weight: 700;
+    }
+
+    .games-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+      gap: 24px;
+      justify-items: center;
+    }
+
+    .game-card {
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .game-card:hover {
+      transform: translateY(-6px);
+    }
+
+    .game-card-inner {
+      background: rgba(20, 20, 40, 0.7);
+      border: 1px solid #2a2a5a;
+      border-radius: 16px;
+      padding: 16px;
+      width: 110px;
+      text-align: center;
+    }
+
+    .game-card:hover .game-card-inner {
+      border-color: #0077ff;
+      box-shadow: 0 0 16px rgba(0, 119, 255, 0.4);
+    }
+
+    .game-card img {
+      width: 64px;
+      height: 64px;
+      object-fit: contain;
+      filter: drop-shadow(0 0 6px rgba(0, 240, 255, 0.3));
+    }
+
+    .game-card p {
+      font-size: 12px;
+      margin-top: 10px;
+      color: #d0d0ff;
+    }
+
+    .modal {
+      display: none;
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background: rgba(0, 0, 0, 0.85);
+      z-index: 200;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .modal-content {
+      background: #0f0f23;
+      border: 1px solid #2a2a5a;
+      border-radius: 16px;
+      width: 90%;
+      max-width: 500px;
+      padding: 30px;
+      box-shadow: 0 0 30px rgba(0, 119, 255, 0.3);
+    }
+
+    .modal h2 {
+      color: #00f0ff;
+      margin-bottom: 20px;
+      text-align: center;
+    }
+
+    .form-group {
+      margin-bottom: 20px;
+    }
+
+    .form-group label {
+      display: block;
+      margin-bottom: 8px;
+      color: #b0b0e0;
+    }
+
+    .form-group input,
+    .form-group select {
+      width: 100%;
+      padding: 12px;
+      background: #1a1a2e;
+      border: 1px solid #2a2a5a;
+      border-radius: 8px;
+      color: white;
+      font-size: 16px;
+    }
+
+    .btn {
+      width: 100%;
+      padding: 14px;
+      background: linear-gradient(90deg, #0077ff, #0055cc);
+      color: white;
+      border: none;
+      border-radius: 8px;
+      font-weight: 700;
+      font-size: 16px;
+      cursor: pointer;
+      transition: all 0.3s;
+    }
+
+    .btn:hover {
+      background: linear-gradient(90deg, #00f0ff, #0077ff);
+      box-shadow: 0 0 15px rgba(0, 240, 255, 0.5);
+    }
+
+    .close {
+      position: absolute;
+      top: 15px;
+      right: 20px;
+      color: #aaa;
+      font-size: 24px;
+      cursor: pointer;
+    }
+
+    footer {
+      text-align: center;
+      padding: 25px;
+      margin-top: 50px;
+      border-top: 1px solid #1a1a3a;
+      color: #8888cc;
+      background: rgba(8, 8, 18, 0.9);
+    }
+
+    @media (max-width: 600px) {
+      .hero-content h1 { font-size: 2rem; }
+      nav a { margin-left: 12px; font-size: 14px; }
+      .games-grid { grid-template-columns: repeat(4, 1fr); }
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <div class="logo">wanlisa topup<span style="color:#00f0ff">official</span></div>
+    <nav>
+      <a href="#"><i class="fas fa-home"></i> Beranda</a>
+      <a href="#"><i class="fas fa-history"></i> Riwayat</a>
+      <a href="#"><i class="fas fa-headset"></i> Bantuan</a>
+      <a href="#"><i class="fas fa-user"></i> Masuk</a>
+    </nav>
+  </header>
+
+  <div class="hero">
+    <div class="hero-content">
+      <h1>Top Up Game Instan & Termurah!</h1>
+    </div>
+  </div>
+
+  <div class="container">
+    <h2 class="section-title">Pilih Game</h2>
+    <div class="games-grid" id="gamesGrid"></div>
+  </div>
+
+  <div class="modal" id="topupModal">
+    <div class="modal-content">
+      <span class="close" onclick="closeModal()">&times;</span>
+      <h2 id="modalTitle">Top Up Game</h2>
+      <form id="topupForm">
+        <input type="hidden" id="gameCode" name="game_code">
+        <div class="form-group">
+          <label for="userId">ID Akun</label>
+          <input type="text" id="userId" name="user_id" placeholder="Contoh: 123456789" required>
+        </div>
+        <div class="form-group">
+          <label for="zoneId">Zona / Server</label>
+          <input type="text" id="zoneId" name="zone_id" placeholder="Contoh: 8888">
+        </div>
+        <div class="form-group">
+          <label for="amount">Pilih Nominal</label>
+          <select id="amount" name="amount" required>
+            <option value="">-- Pilih --</option>
+          </select>
+        </div>
+        <button type="submit" class="btn">Kirim Permintaan</button>
+      </form>
+    </div>
+  </div>
+
+  <footer>
+    <p>&copy; 2025 TopUpPro — Top Up Game Otomatis</p>
+  </footer>
+
+  <script>
+    // === ⚙️ KONFIGURASI API — GANTI DI SINI ===
+    const API_CONFIG = {
+      url: "https://api.miraclegaming.store/service", // ← GANTI DENGAN URL API KAMU
+      apiKey: "43d51afe1f86b4d6219d823b",            // ← GANTI DENGAN API KEY KAMU
+      headerName: "X-API-Key"                         // ← GANTI JIKA HEADER BEDA (misal: "Authorization")
+    };
+
+    // Data game (sesuaikan kode produk dengan API kamu)
+    const games = [
+      { name: "Mobile Legends", code: "mlbb", icon: "https://upload.wikimedia.org/wikipedia/en/thumb/9/9f/Mobile_Legends_Logo.png/128px-Mobile_Legends_Logo.png", products: ["mlbb-50", "mlbb-100", "mlbb-200"] },
+      { name: "Free Fire", code: "ff", icon: "https://upload.wikimedia.org/wikipedia/en/thumb/3/35/Free_Fire_logo.svg/128px-Free_Fire_logo.svg.png", products: ["ff-70", "ff-355", "ff-720"] },
+      { name: "PUBG Mobile", code: "pubg", icon: "https://upload.wikimedia.org/wikipedia/commons/thumb/3/3d/PUBG_Mobile_Logo.svg/128px-PUBG_Mobile_Logo.svg.png", products: ["pubg-60", "pubg-325", "pubg-660"] },
+      { name: "Genshin Impact", code: "genshin", icon: "https://upload.wikimedia.org/wikipedia/en/thumb/5/57/Genshin_Impact_logo.svg/128px-Genshin_Impact_logo.svg.png", products: ["genshin-60", "genshin-300", "genshin-980"] }
+    ];
+
+    // Render game cards
+    const grid = document.getElementById('gamesGrid');
+    games.forEach(game => {
+      const card = document.createElement('div');
+      card.className = 'game-card';
+      card.onclick = () => openTopUpForm(game);
+      card.innerHTML = `
+        <div class="game-card-inner">
+          <img src="${game.icon}" alt="${game.name}">
+          <p>${game.name}</p>
+        </div>
+      `;
+      grid.appendChild(card);
+    });
+
+    function openTopUpForm(game) {
+      document.getElementById('modalTitle').innerText = `Top Up ${game.name}`;
+      document.getElementById('gameCode').value = game.code;
+
+      const amountSelect = document.getElementById('amount');
+      amountSelect.innerHTML = '<option value="">-- Pilih --</option>';
+      game.products.forEach(prod => {
+        const opt = document.createElement('option');
+        opt.value = prod;
+        opt.textContent = prod.replace(game.code + '-', '') + ' Diamond/UC';
+        amountSelect.appendChild(opt);
+      });
+
+      document.getElementById('topupModal').style.display = 'flex';
+    }
+
+    function closeModal() {
+      document.getElementById('topupModal').style.display = 'none';
+    }
+
+    // === 🚀 FUNGSI KIRIM KE API ===
+    async function sendTopUpRequest(data) {
+      try {
+        const response = await fetch(API_CONFIG.url, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            [API_CONFIG.headerName]: API_CONFIG.apiKey  // ← Header API Key
+          },
+          body: JSON.stringify(data)
+        });
+
+        const result = await response.json();
+        return { success: true, data: result };
+      } catch (error) {
+        return { success: false, error: error.message };
+      }
+    }
+
+    // Handle form submit
+    document.getElementById('topupForm').addEventListener('submit', async function(e) {
+      e.preventDefault();
+
+      const formData = {
+        product: document.getElementById('amount').value,
+        user_id: document.getElementById('userId').value,
+        zone_id: document.getElementById('zoneId').value || ""
+      };
+
+      // Tampilkan loading
+      const btn = document.querySelector('.btn');
+      const originalText = btn.innerText;
+      btn.innerText = 'Mengirim...';
+      btn.disabled = true;
+
+      // Kirim ke API
+      const result = await sendTopUpRequest(formData);
+
+      // Kembalikan tombol
+      btn.innerText = originalText;
+      btn.disabled = false;
+
+      if (result.success) {
+        alert(`✅ Berhasil!\nRespons: ${JSON.stringify(result.data, null, 2)}`);
+      } else {
+        alert(`❌ Gagal: ${result.error}`);
+      }
+
+      closeModal();
+    });
+
+    window.onclick = function(event) {
+      const modal = document.getElementById('topupModal');
+      if (event.target === modal) closeModal();
+    }
+  </script>
+
+</body>
+</html>
